@@ -1,0 +1,23 @@
+[package]
+name = "mrkrabs"
+description = "Mr.Krabs is a simple price tracking bot for that big e-shopping platform we do not name."
+repository = "https://github.com/kon14/MrKrabs"
+authors = ["Konstantinos Feretos <konferetos@tutanota.com>"]
+license = "AGPL-3.0"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rand = "0.8.4"
+reqwest = "0.11.8"
+scraper = "0.12.0"
+futures = "0.3.19" # for our async / await blocks
+tokio = { version = "1.15.0", features = ["full"] }
+selectors = "0.22.0"
+clap = { version = "3.0.2", features = ["derive"] }
+
+# [target.'cfg(feature = "notifications")'.dependencies]
+libnotify = { version = "1.0.3" }
+
+[features]
+notifications = []
