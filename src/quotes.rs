@@ -1,6 +1,5 @@
-extern crate rand;
-
 use rand::Rng;
+use colored::*;
 
 const QUOTES: [&str; 8] = [
   "Well, the way I see it, there are three possibilities: One, you stole it; two, you stole it; or three, you stole it!",
@@ -14,5 +13,5 @@ const QUOTES: [&str; 8] = [
 ];
 
 pub fn spit_facts() {
-  println!("{} -Mr.Krabs\n", QUOTES[rand::thread_rng().gen_range(0..QUOTES.len().into())]);
+  println!("{} -Mr.Krabs\n", QUOTES[rand::thread_rng().gen_range(0..QUOTES.len().into())].italic().bold().bright_green());
 }

@@ -4,9 +4,8 @@ mod cli;
 mod constants;
 mod structs;
 
-extern crate libnotify;
-
 use std::{thread, time};
+use colored::*;
 
 #[tokio::main]
 async fn main() {
@@ -32,9 +31,22 @@ async fn main() {
 
         // Handle found products
         for product in found_products.iter() {
-            println!("Product: {}\nPrice: {}\nUrl: {}\n", product.name, product.price, product.url);
+            println!(
+                "Product: {}\nPrice: {}\nUrl: {}\n",
+                product.name.magenta(),
+                format!("{}{}", product.price.to_string(), "€").yellow(),
+                product.url.cyan()
+            );
         }
-        println!("Found {} products", found_products.len());
+        println!(
+            "{}\n",
+            format!(
+                "{}{}{}",
+                " > Found ".magenta(),
+                found_products.len().to_string().cyan(),
+                " products < ".magenta()
+            ).bold().on_white()
+        );
 
         // Send desktop notifications [Linux]
         if found_products.len() > 0 {
@@ -53,7 +65,15 @@ async fn main() {
 
         // Exit loop or schedule next run
         if args.run_once { break; }
-        println!("Next run starting in {} {}", args.period, if args.period == 1 { "minute" } else { "minute"});
+        println!(
+            "{} {}.",
+            "Next run starting in".italic().yellow(),
+            format!(
+                "{} {}",
+                args.period.to_string(),
+                if args.period == 1 { "minute" } else { "minutes" }
+            ).italic().bold().yellow()
+        );
         thread::sleep(period);
     }
 

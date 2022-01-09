@@ -1,5 +1,6 @@
 use clap::Parser;
 use std::process;
+use colored::*;
 use crate::constants;
 
 /// Mr.Krabs is a simple price tracking bot for that big e-shopping platform we do not name
@@ -44,12 +45,12 @@ pub fn get_args() -> Args {
 
 fn validate(args: &Args) {
   if !args.url.starts_with(constants::DOMAIN_NAME) {
-    println!("Invalid Argument: Url must begin with {}", constants::DOMAIN_NAME);
+    println!("{}", format!("{} {} {}", "Invalid Argument:".red(), "Url must begin with", constants::DOMAIN_NAME).bold());
     process::exit(1);
   }
 
   if args.min_price > args.max_price {
-    println!("Invalid Argument: Minim price ({}) can't exceed maximum price ({})", args.min_price, args.max_price);
+    println!("{}", format!("{} {}{}{}{}{}", "Invalid Argument:".red(), "Minimum price (",  args.min_price, ") can't exceed Maximum price (", args.max_price, ")").bold());
     process::exit(2);
   }
 }

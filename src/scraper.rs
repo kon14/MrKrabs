@@ -1,9 +1,6 @@
-extern crate reqwest;
-extern crate scraper;
-extern crate selectors;
-
 use scraper::{Html, Selector};
 use selectors::attr::CaseSensitivity;
+use colored::*;
 use crate::constants::DOMAIN_NAME;
 use crate::structs::Product;
 
@@ -23,7 +20,7 @@ pub async fn scrape(start_url: &str, filter: &Filter) -> Vec<Product> {
   let initial_page = get_page_body(&client, &start_url).await;
   let mut found_products: Vec<Product> = Vec::new();
 
-  println!("Filtering products...",);
+  println!("{}", "Filtering products...".yellow());
   let mut page_html = initial_page;
   loop {
       found_products.append(&mut process_page_products(&page_html, filter));
